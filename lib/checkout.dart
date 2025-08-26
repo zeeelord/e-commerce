@@ -12,19 +12,21 @@ class Product {
   String get displayName => '($initial) $name.substring()}: \$$price';
 }
 
-class item {
-  const item({required this.product, this.quantity = 1});
+class Item {
+  Item({required this.product, this.quantity = 1});
   final Product product;
   final int quantity;
   double get price => quantity * product.price;
 }
 
 class Cart {
-  final Map<int, item> _items = {};
+  final Map<int, Item> _items = {};
   void addProduct(Product product) {
     final item = _items[product.id];
     if (item == null) {
-      _items[product.id] = Item();
+      _items[product.id] = Item(product: product, quantity: 1);
+    } else {
+      _items[product.id] = Item(product: product, quantity: item.quantity + 1);
     }
   }
 }
